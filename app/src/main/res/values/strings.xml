@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Study</string>
+
+    <string name="menu_first">首页</string>
+    <string name="menu_second">自习室</string>
+    <string name="menu_third">我的</string>
+    <string name="please_input">请输入</string>
+    <string name="search">搜索</string>
+    <string name="accessbiliityNo">请为App打开辅助功能开关！！</string>
+</resources>
