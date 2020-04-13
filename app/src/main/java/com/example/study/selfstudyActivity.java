@@ -90,6 +90,7 @@ public class selfstudyActivity extends AppCompatActivity implements View.OnClick
 
         @Override
         public boolean handleMessage(@NonNull Message msg) {
+            if(isfail) return false;
             if (minute == 0) {
                 if (second == 0) {
                     //tv_selfstudy_time.setText("Time out !");
