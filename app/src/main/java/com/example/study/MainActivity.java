@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 public class MainActivity extends ActivityGroup implements View.OnClickListener {
     private static final String TAG = "TabGroupActivity";
     private Bundle mBundle = new Bundle();
-    private LinearLayout ll_container, ll_first, ll_second, ll_third;
+    private LinearLayout ll_container, ll_first, ll_second, ll_third,ll_fourth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,16 +24,19 @@ public class MainActivity extends ActivityGroup implements View.OnClickListener 
         ll_first = (LinearLayout) findViewById(R.id.ll_first);
         ll_second = (LinearLayout) findViewById(R.id.ll_second);
         ll_third = (LinearLayout) findViewById(R.id.ll_third);
+        ll_fourth=(LinearLayout) findViewById(R.id.ll_fourth);
         ll_first.setOnClickListener(this);
         ll_second.setOnClickListener(this);
         ll_third.setOnClickListener(this);
+        ll_fourth.setOnClickListener(this);
         mBundle.putString("tag", TAG);
         changeContainerView(ll_first);
     }
 
     @Override
     public void onClick(View v) {
-        if (v.getId()==R.id.ll_first || v.getId()==R.id.ll_second || v.getId()==R.id.ll_third) {
+        if (v.getId()==R.id.ll_first || v.getId()==R.id.ll_second
+                || v.getId()==R.id.ll_third || v.getId()==R.id.ll_fourth) {
             changeContainerView(v);
         }
     }
@@ -42,6 +45,7 @@ public class MainActivity extends ActivityGroup implements View.OnClickListener 
         ll_first.setSelected(false);
         ll_second.setSelected(false);
         ll_third.setSelected(false);
+        ll_fourth.setSelected(false);
         v.setSelected(true);
         if (v == ll_first) {
             toActivity("first", TabFirstActivity.class);
@@ -49,6 +53,8 @@ public class MainActivity extends ActivityGroup implements View.OnClickListener 
             toActivity("second", TabSecondActivity.class);
         } else if (v == ll_third) {
             toActivity("third", TabThirdActivity.class);
+        } else if (v == ll_fourth) {
+            toActivity("fourth", TabFourthActivity.class);
         }
     }
 

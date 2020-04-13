@@ -43,6 +43,19 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_fourth"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/TabButton"
+                android:drawableTop="@drawable/tab_third_selector"
+                android:text="@string/menu_fourth" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/ll_third"
             android:layout_width="0dp"
             android:layout_height="match_parent"
