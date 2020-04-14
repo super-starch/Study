@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:gravity="center"
-                android:text="自习时间"
+                android:text="跑步距离"
                 android:textColor="@color/black"
                 android:textSize="17sp"/>
 

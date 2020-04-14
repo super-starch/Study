@@ -23,19 +23,19 @@ public class TabFourthActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View v){
-        if(v.getId() == R.id.btn_selfstudy_start){
+        if(v.getId() == R.id.btn_run_start){
             String distance=et_run_distance.getText().toString();
             if(distance.length()<1){
-                Toast.makeText(this,"请输入自习时间",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"请输入运动距离",Toast.LENGTH_SHORT).show();
                 return;
             }
             else {
-                /*int time_int=Integer.parseInt(distance);
-                Intent intent = new Intent(this, selfstudyActivity.class);
+                int distance_int=Integer.parseInt(distance);
+                Intent intent = new Intent(this, RunActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putInt("time", time_int);
+                bundle.putInt("distance", distance_int);
                 intent.putExtras(bundle);
-                startActivity(intent);*/
+                startActivity(intent);
             }
         }
     }
