@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Button;
@@ -190,4 +191,12 @@ public class selfstudyActivity extends AppCompatActivity implements View.OnClick
     }
 
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            forcefinshstudy();
+            return false;
+        }
+        return super.onKeyDown(keyCode,event);
+    }
 }

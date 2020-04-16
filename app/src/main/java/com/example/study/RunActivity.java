@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -143,5 +144,14 @@ public class RunActivity extends AppCompatActivity implements View.OnClickListen
         builder.setNegativeButton("取消",null);
         AlertDialog alert=builder.create();
         alert.show();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            forcefinshsrun();
+            return false;
+        }
+        return super.onKeyDown(keyCode,event);
     }
 }
