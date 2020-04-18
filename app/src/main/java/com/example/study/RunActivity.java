@@ -1,9 +1,5 @@
 package com.example.study;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +9,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,6 +26,7 @@ public class RunActivity extends AppCompatActivity implements View.OnClickListen
     private TextView tv_run_time;
     private Button btn_run_finsh;
     private Button btn_run_pause;
+    private Button btn_map_open;
     private Boolean ispause=false;
 
     @Override
@@ -39,9 +40,11 @@ public class RunActivity extends AppCompatActivity implements View.OnClickListen
         tv_run_time=(TextView)findViewById(R.id.tv_run_time);
         btn_run_finsh=(Button)findViewById(R.id.btn_run_finsh);
         btn_run_pause=(Button)findViewById(R.id.btn_run_pause);
+        btn_map_open=(Button)findViewById(R.id.btn_map_open);
 
         btn_run_pause.setOnClickListener(this);
         btn_run_finsh.setOnClickListener(this);
+        btn_map_open.setOnClickListener(this);
 
         startTime();
     }
@@ -58,6 +61,10 @@ public class RunActivity extends AppCompatActivity implements View.OnClickListen
         }
         if (v.getId()==R.id.btn_run_finsh){
             forcefinshsrun();
+        }
+        if(v.getId()==R.id.btn_map_open){
+            Intent intent = new Intent(this,ShowmapActivity.class);
+            startActivity(intent);
         }
     }
 
