@@ -70,4 +70,8 @@
     <meta-data android:name="com.amap.api.v2.apikey" android:value="ef3c1318a8ba845c3fd7fe027ea4b9fd">
     </meta-data>
 
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+
 </manifest>
