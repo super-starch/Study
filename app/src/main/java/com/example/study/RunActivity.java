@@ -97,21 +97,21 @@ public class RunActivity extends AppCompatActivity implements View.OnClickListen
         @Override
         public boolean handleMessage(@NonNull Message msg) {
             if (!ispause){
-                if (minute == 0) {
+                /*if (minute == 0) {
                     second++;
                     if (second >= 10) {
                         tv_run_time.setText("0" + minute + ":" + second);
                     } else {
                         tv_run_time.setText("0" + minute + ":0" + second);
                     }
-                } else {
+                } else {*/
                     if (second == 59) {
                         second = 0;
                         minute++;
                         if (minute >= 10) {
-                            tv_run_time.setText(minute + ":" + second);
+                            tv_run_time.setText(minute + ":" + "00");
                         } else {
-                            tv_run_time.setText("0" + minute + ":" + second);
+                            tv_run_time.setText("0" + minute + ":" + "00");
                         }
                     } else {
                         second++;
@@ -129,7 +129,7 @@ public class RunActivity extends AppCompatActivity implements View.OnClickListen
                             }
                         }
                     }
-                }
+                //}
 
                 return false;
             }
