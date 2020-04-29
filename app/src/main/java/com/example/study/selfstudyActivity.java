@@ -1,26 +1,23 @@
 package com.example.study;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.accessibility.AccessibilityEvent;
-import android.widget.Button;
-import android.widget.TextView;
-
 import java.util.Timer;
 import java.util.TimerTask;
-
-import com.example.study.BackgroundUtil;
 
 public class selfstudyActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,6 +30,8 @@ public class selfstudyActivity extends AppCompatActivity implements View.OnClick
     private String mPackageName;
     private Context mContext;
     private Boolean isfail=false;
+    private SharedPreferences shared;
+    private int integral;
 
 
     @Override
@@ -42,6 +41,7 @@ public class selfstudyActivity extends AppCompatActivity implements View.OnClick
         Intent intent=getIntent();
         Bundle bundle=intent.getExtras();
         minute=bundle.getInt("time",0);
+        //second=5;
         btn_selfstudy_finsh=(Button)findViewById(R.id.btn_selfstudy_finsh);
         tv_selfstudy_time=(TextView)findViewById(R.id.tv_selfstudy_time);
 
@@ -49,6 +49,9 @@ public class selfstudyActivity extends AppCompatActivity implements View.OnClick
 
         mPackageName="com.example.study";
         mContext=this;
+
+        shared=getSharedPreferences("share",MODE_PRIVATE);
+        integral=shared.getInt("integral",0);
 
         startTime();
     }
@@ -143,6 +146,9 @@ public class selfstudyActivity extends AppCompatActivity implements View.OnClick
     });
 
     private void finishstudy(){
+        SharedPreferences.Editor editor=shared.edit();
+        editor.putInt("integral",integral+1);
+        editor.commit();
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle("自习结束");
         builder.setMessage("快去休息吧!");
