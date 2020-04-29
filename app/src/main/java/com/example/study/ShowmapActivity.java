@@ -1,5 +1,6 @@
 package com.example.study;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,10 +13,14 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.PolylineOptions;
 
 
@@ -26,6 +31,9 @@ public class ShowmapActivity extends AppCompatActivity implements LocationSource
     private LatLng oldLatLng;
     //是否是第一次定位
     private boolean isFirstLatLng;
+    private float distance;
+    private Marker makerA;
+    private Marker makerB;
 
     private LocationSource.OnLocationChangedListener mListener;
     private AMapLocationClient mlocationClient;
@@ -95,6 +103,18 @@ public class ShowmapActivity extends AppCompatActivity implements LocationSource
                     Log.e("Amap", amapLocation.getLatitude() + "," + amapLocation.getLongitude());
                     setUpMap( oldLatLng , newLatLng );
                     oldLatLng = newLatLng;
+                    makerA = aMap.addMarker(new MarkerOptions().position(oldLatLng)
+                            .draggable(true)
+                            .icon(BitmapDescriptorFactory
+                                    .defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                    makerB = aMap.addMarker(new MarkerOptions().position(newLatLng)
+                            .draggable(true)
+                            .icon(BitmapDescriptorFactory
+                                    .defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+                    distance = AMapUtils.calculateLineDistance(makerA.getPosition(),makerB.getPosition());
+                    Intent intent=new Intent();
+                    intent.putExtra("distance",distance);
+                    setResult(RESULT_OK,intent);
                 }
 
             } else {

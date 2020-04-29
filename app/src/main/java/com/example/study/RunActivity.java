@@ -18,7 +18,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class RunActivity extends AppCompatActivity implements View.OnClickListener {
-    private int distance;
+    private float distance=0;
     private int minute=0;
     private int second=0;
     private Timer timer = null;
@@ -28,6 +28,7 @@ public class RunActivity extends AppCompatActivity implements View.OnClickListen
     private Button btn_run_pause;
     private Button btn_map_open;
     private Boolean ispause=false;
+    private TextView tv_run_distance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +42,13 @@ public class RunActivity extends AppCompatActivity implements View.OnClickListen
         btn_run_finsh=(Button)findViewById(R.id.btn_run_finsh);
         btn_run_pause=(Button)findViewById(R.id.btn_run_pause);
         btn_map_open=(Button)findViewById(R.id.btn_map_open);
+        tv_run_distance=(TextView)findViewById(R.id.tv_run_distance);
 
         btn_run_pause.setOnClickListener(this);
         btn_run_finsh.setOnClickListener(this);
         btn_map_open.setOnClickListener(this);
 
+        tv_run_distance.setText("-1");
         startTime();
     }
 
@@ -160,5 +163,20 @@ public class RunActivity extends AppCompatActivity implements View.OnClickListen
             return false;
         }
         return super.onKeyDown(keyCode,event);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    distance = data.getFloatExtra("distance", 1);
+                    String distances = Double.toString(distance);
+                    tv_run_distance.setText(distances);
+                }
+                break;
+            default:
+        }
     }
 }
