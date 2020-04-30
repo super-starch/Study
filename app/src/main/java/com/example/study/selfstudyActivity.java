@@ -32,6 +32,7 @@ public class selfstudyActivity extends AppCompatActivity implements View.OnClick
     private Boolean isfail=false;
     private SharedPreferences shared;
     private int integral;
+    private int cnt=0;
 
 
     @Override
@@ -75,8 +76,18 @@ public class selfstudyActivity extends AppCompatActivity implements View.OnClick
 
             @Override
             public void run() {
-                if (!isfail&&!BackgroundUtil.isForeground(mContext,3,mPackageName)){
-                    isfail=true;
+                if (!isfail){
+                    if (!BackgroundUtil.isForeground(mContext,3,mPackageName)){
+                        if (cnt<3){
+                            cnt++;
+                        }
+                        else {
+                            isfail=true;
+                        }
+                    }
+                    else {
+                        cnt=0;
+                    }
                 }
                 Message msg = new Message();
                 msg.what = 0;
