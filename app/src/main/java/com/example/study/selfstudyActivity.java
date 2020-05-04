@@ -1,12 +1,16 @@
 package com.example.study;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -86,7 +90,7 @@ public class selfstudyActivity extends AppCompatActivity implements View.OnClick
                 if (!isfail){
                     if (!BackgroundUtil.isForeground(mContext,3,mPackageName)){
                         if (cnt<3){
-                            notificationAPI_16p();
+                            notification();
                             cnt++;
                         }
                         else {
@@ -225,31 +229,48 @@ public class selfstudyActivity extends AppCompatActivity implements View.OnClick
         return super.onKeyDown(keyCode,event);
     }
 
-    public void notificationAPI_16p() {
-        // 获取NotificationManager管理者对象
-        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        // 创建一个PendingIntent，和Intent类似，不同的是由于不是马上调用，需要在下拉状态条出发的Activity，所以采用的是PendingIntent,即点击Notification跳转启动到哪个Activity
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class), 0);
-        // 通过Notification.Builder来创建通知，注意API Level 16之后才支持
-        Notification notificationAPI_16p = new Notification.Builder(this)
-                // 设置状态栏中的小图片，尺寸一般建议在24×24，这个图片同样也是在下拉状态栏中所显示，如果在那里需要更换更大的图片，可以使用setLargeIcon(Bitmap icon)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                // 设置在status bar上显示的提示文字
-                .setTicker("TickerText:" + "您有新短消息，请注意查收！")
-                // 设置在下拉status bar后显示的标题
-                .setContentTitle("这里是标题（API 16+）")
-                // 设置在下拉status bar后显示的内容
-                .setContentText("这里是显示的内容")
-                // 关联PendingIntent
-                .setContentIntent(pendingIntent)
-                // 设置在下拉status bar后显示的数字
-                .setNumber(1)
-                // 需要注意build()是在API level 16及之后增加的，API11可以使用getNotificatin()来替代
-                .build();
-        // FLAG_AUTO_CANCEL表明当通知被用户点击时，通知将被清除。
-        notificationAPI_16p.flags |= Notification.FLAG_AUTO_CANCEL;
-        // 通过通知管理器来发起通知
-        manager.notify(NOTIFICATION_FLAG, notificationAPI_16p);
+    public void notification(){
+        Intent intent = new Intent(this,selfstudyActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, 0);
+        NotificationManager mNManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Notification notification;
+        Notification.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            builder=new Notification.Builder(this,"5996773");
+        }else {
+            builder=new Notification.Builder(this);
+        }
+        //设置标题
+        builder.setContentTitle("请关闭其他应用");
+        //设置内容
+        builder.setContentText("继续使用其他应用可能会导致自习失败");
+        //设置状态栏显示的图标，建议图标颜色透明
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        // 设置通知灯光（LIGHTS）、铃声（SOUND）、震动（VIBRATE）、（ALL 表示都设置）
+        builder.setDefaults(Notification.DEFAULT_VIBRATE);
+        //灯光三个参数，颜色（argb）、亮时间（毫秒）、暗时间（毫秒）,灯光与设备有关
+        //builder.setLights(Color.RED, 200, 200);
+        // 铃声,传入铃声的 Uri（可以本地或网上）我这没有铃声就不传了
+        //builder.setSound(Uri.parse("")) ;
+        // 震动，传入一个 long 型数组，表示 停、震、停、震 ... （毫秒）
+        builder.setVibrate(new long[]{0, 200, 200, 200, 200, 200});
+        // 通知栏点击后自动消失
+        builder.setAutoCancel(true);
+        // 简单通知栏设置 Intent
+        //builder.setContentIntent(pendingIntent);
+        builder.setPriority(Notification.PRIORITY_HIGH);
+
+        //设置下拉之后显示的图片
+        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.tab_bg_normal));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("5996773", "安卓10a", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.enableLights(true);//是否在桌面icon右上角展示小红点
+            channel.setLightColor(Color.GREEN);//小红点颜色
+            channel.setShowBadge(false); //是否在久按桌面图标时显示此渠道的通知
+            mNManager.createNotificationChannel(channel);
+        }
+        notification=builder.build();
+        mNManager.notify(1,notification);
     }
 
     private void check(){
