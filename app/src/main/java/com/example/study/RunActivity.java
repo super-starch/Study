@@ -26,10 +26,8 @@ import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
-import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
-import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.PolylineOptions;
 
 import java.util.Timer;
@@ -249,19 +247,19 @@ public class RunActivity extends AppCompatActivity implements View.OnClickListen
                 if(oldLatLng != newLatLng){
                     Log.e("Amap", amapLocation.getLatitude() + "," + amapLocation.getLongitude());
                     setUpMap( oldLatLng , newLatLng );
-                    oldLatLng = newLatLng;
-                    makerA = aMap.addMarker(new MarkerOptions().position(oldLatLng)
+                    /*makerA = aMap.addMarker(new MarkerOptions().position(oldLatLng)
                             .draggable(true)
                             .icon(BitmapDescriptorFactory
                                     .defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                     makerB = aMap.addMarker(new MarkerOptions().position(newLatLng)
                             .draggable(true)
                             .icon(BitmapDescriptorFactory
-                                    .defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
-                    distance = distance+AMapUtils.calculateLineDistance(makerA.getPosition(),makerB.getPosition())*1000;
+                                    .defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));*/
+                    distance = distance+AMapUtils.calculateLineDistance(oldLatLng,newLatLng);
                     //distance = distance+1;
                     String distances=Double.toString(distance);
                     tv_run_distance.setText(distances);
+                    oldLatLng = newLatLng;
                 }
 
             } else {
