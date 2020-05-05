@@ -89,7 +89,7 @@ public class selfstudyActivity extends AppCompatActivity implements View.OnClick
             public void run() {
                 if (!isfail){
                     if (!BackgroundUtil.isForeground(mContext,3,mPackageName)){
-                        if (cnt<3){
+                        if (cnt<5){
                             notification();
                             cnt++;
                         }
@@ -100,6 +100,19 @@ public class selfstudyActivity extends AppCompatActivity implements View.OnClick
                     else {
                         cnt=0;
                     }
+                }
+                else {
+                    AlertDialog.Builder builder=new AlertDialog.Builder(mContext);
+                    builder.setTitle("自习失败");
+                    builder.setMessage("失败了!可能是因为打开了其他应用");
+                    builder.setPositiveButton("确定",new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog,int which){
+                            finish();
+                        }
+                    });
+                    AlertDialog alert=builder.create();
+                    alert.show();
                 }
                 Message msg = new Message();
                 msg.what = 0;

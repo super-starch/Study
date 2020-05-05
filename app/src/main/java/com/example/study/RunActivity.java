@@ -234,7 +234,7 @@ public class RunActivity extends AppCompatActivity implements View.OnClickListen
         if (mListener != null && amapLocation != null) {
             if (amapLocation != null
                     && amapLocation.getErrorCode() == 0) {
-                //mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
+                mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
 //                //定位成功
                 LatLng newLatLng = new LatLng(amapLocation.getLatitude(),amapLocation.getLongitude());
 //                Log.e("Amap", amapLocation.getLatitude() + "," + amapLocation.getLongitude());
@@ -258,7 +258,7 @@ public class RunActivity extends AppCompatActivity implements View.OnClickListen
                             .draggable(true)
                             .icon(BitmapDescriptorFactory
                                     .defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
-                    distance = distance+AMapUtils.calculateLineDistance(makerA.getPosition(),makerB.getPosition());
+                    distance = distance+AMapUtils.calculateLineDistance(makerA.getPosition(),makerB.getPosition())*1000;
                     //distance = distance+1;
                     String distances=Double.toString(distance);
                     tv_run_distance.setText(distances);
