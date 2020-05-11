@@ -1,12 +1,12 @@
 package com.example.study;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class TabFourthActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -15,7 +15,7 @@ public class TabFourthActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab_fourth);
+        setContentView(R.layout.fragment_tab_fourth);
         et_run_distance=(EditText)findViewById(R.id.et_run_distance);
 
         findViewById(R.id.btn_run_start).setOnClickListener(this);

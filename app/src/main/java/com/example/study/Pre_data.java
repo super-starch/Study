@@ -1,6 +1,7 @@
 package com.example.study;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Pre_data extends AppCompatActivity implements View.OnClickListener {
 
     private Button btn_logout;
+    private Button btn_shop;
     private TextView tv_integral;
 
     private SharedPreferences shared;
@@ -25,8 +27,10 @@ public class Pre_data extends AppCompatActivity implements View.OnClickListener 
         setContentView(R.layout.activity_pre_data);
 
         btn_logout=(Button) findViewById(R.id.btn_logout);
+        btn_shop=(Button) findViewById(R.id.btn_shop);
         tv_integral=(TextView) findViewById(R.id.tv_integral);
         btn_logout.setOnClickListener(this);
+        btn_shop.setOnClickListener(this);
         shared=getSharedPreferences("share",MODE_PRIVATE);
         integral=shared.getInt("integral",0);
         String integrals=Integer.toString(integral);
@@ -48,6 +52,10 @@ public class Pre_data extends AppCompatActivity implements View.OnClickListener 
             });
             AlertDialog alert=builder.create();
             alert.show();
+        }
+        if(v.getId()==R.id.btn_shop){
+            Intent intent1 = new Intent(this,bookshelfActivity.class);
+            startActivity(intent1);
         }
     }
 }
