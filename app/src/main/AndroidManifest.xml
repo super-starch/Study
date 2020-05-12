@@ -26,7 +26,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".bookshelfActivity"></activity>
+        <activity android:name=".splashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".bookshelfActivity" />
         <activity android:name=".ShowmapActivity" />
         <activity android:name=".RunActivity" />
         <activity android:name=".TabFourthActivity" />
@@ -36,11 +43,7 @@
         <activity android:name=".Pre_data" />
         <activity android:name=".Ctrl" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".TabFirstActivity" />
         <activity android:name=".TabSecondActivity" />
@@ -72,7 +75,7 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="ef3c1318a8ba845c3fd7fe027ea4b9fd"></meta-data>
+            android:value="ef3c1318a8ba845c3fd7fe027ea4b9fd" />
     </application>
 
 </manifest>
