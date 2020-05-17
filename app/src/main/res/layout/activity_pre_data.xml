@@ -7,11 +7,37 @@
     android:orientation="vertical"
     tools:context=".Pre_data">
 
+    <Button
+        android:id="@+id/btn_changehead"
+        android:layout_width="407dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@mipmap/ic_launcher"
+        android:drawablePadding="5dp"
+        android:text="修改头像"
+        android:textColor="#000000"
+        android:textSize="17sp" />
     <TextView
+        android:id="@+id/tv_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="个人信息" />
+        android:text="账号：" />
+
+    <TextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="昵称：" />
+
+    <TextView
+        android:id="@+id/tv_introduce_oneself"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="个人简介：" />
 
     <TextView
         android:id="@+id/tv_integral"
