@@ -41,6 +41,9 @@ public class Pre_data extends AppCompatActivity implements View.OnClickListener 
         if (v.getId()==R.id.btn_logout){
             SharedPreferences.Editor editor=shared.edit();
             editor.putBoolean("islogin",false);
+            editor.putBoolean("rember",false);
+            editor.putString("phone","");
+            editor.putString("password","");
             editor.commit();
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setTitle("注销成功");

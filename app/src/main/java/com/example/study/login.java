@@ -1,8 +1,5 @@
 package com.example.study;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +16,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 public class login extends AppCompatActivity implements View.OnClickListener {
 
     private RadioGroup rg_login;
@@ -30,6 +30,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
     private Button btn_forget;
     private CheckBox ck_remeber;
     private Button btn_login;
+    private Button btn_regist;
 
     private int mRequestCode=0;
     private boolean bRemeber=false;
@@ -51,6 +52,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         btn_forget=(Button) findViewById(R.id.btn_forget);
         ck_remeber=(CheckBox) findViewById(R.id.ck_remember);
         btn_login=(Button) findViewById(R.id.btn_login);
+        btn_regist=(Button) findViewById(R.id.btn_regist);
 
         rg_login.setOnCheckedChangeListener(new RadioListener());
         ck_remeber.setOnCheckedChangeListener(new CheckListener());
@@ -58,6 +60,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         et_password.addTextChangedListener(new HideTextWatcher(et_password));
         btn_forget.setOnClickListener(this);
         btn_login.setOnClickListener(this);
+        btn_regist.setOnClickListener(this);
 
         shared=getSharedPreferences("share",MODE_PRIVATE);
         String Phone=shared.getString("phone","");
@@ -152,13 +155,18 @@ public class login extends AppCompatActivity implements View.OnClickListener {
             }
         }
         else if (v.getId()==R.id.btn_login){
+            mpassword=shared.getString(et_phone.getText().toString(),"");
             if (phone==null||phone.length()<11){
                 Toast.makeText(this,"请输入正确的手机号",Toast.LENGTH_SHORT).show();
                 return;
             }
+            if(mpassword==null){
+                Toast.makeText(this,"账号不存在或密码错误",Toast.LENGTH_SHORT).show();
+                return;
+            }
             if (rb_password.isChecked()==true){
                 if (et_password.getText().toString().equals(mpassword)!=true){
-                    Toast.makeText(this,"请输入正确的密码",Toast.LENGTH_LONG).show();
+                    Toast.makeText(this,"账号不存在或密码错误",Toast.LENGTH_LONG).show();
                     return;
                 }
                 else {
@@ -167,7 +175,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
             }
             if (rb_verifycode.isChecked()==true){
                 if (et_password.getText().toString().equals(mVerifyCode)!=true){
-                    Toast.makeText(this,"请输入正确的验证码",Toast.LENGTH_LONG).show();
+                    Toast.makeText(this,"账号不存在或验证码错误",Toast.LENGTH_LONG).show();
                     return;
                 }
                 else {
@@ -175,12 +183,17 @@ public class login extends AppCompatActivity implements View.OnClickListener {
                 }
             }
         }
+        else if (v.getId()==R.id.btn_regist){
+            Intent intent=new Intent(this,RegistActivity.class);
+            startActivity(intent);
+        }
     }
 
     //@Override
-    protected void onActivityResult(int requestCode,int resultCode,Intent data){
-        if (requestCode==mRequestCode&&data!=null){
-            mpassword=data.getStringExtra("new_password");
+    protected void onActivityResult(int requestCode,int resultCode,Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == mRequestCode && data != null) {
+            mpassword = data.getStringExtra("new_password");
         }
     }
 
@@ -195,6 +208,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
             SharedPreferences.Editor editor=shared.edit();
             editor.putString("phone",et_phone.getText().toString());
             editor.putString("password",et_password.getText().toString());
+            editor.putString(et_phone.getText().toString(),et_password.getText().toString());
             editor.putBoolean("rember",true);
             editor.putBoolean("islogin",true);
             editor.commit();
