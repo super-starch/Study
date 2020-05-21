@@ -194,6 +194,9 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == mRequestCode && data != null) {
             mpassword = data.getStringExtra("new_password");
+            SharedPreferences.Editor editor=shared.edit();
+            editor.putString(et_phone.getText().toString(),mpassword);
+            editor.commit();
         }
     }
 
@@ -207,6 +210,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         if (bRemeber){
             SharedPreferences.Editor editor=shared.edit();
             editor.putString("phone",et_phone.getText().toString());
+            editor.putString("nowphone",et_phone.getText().toString());
             editor.putString("password",et_password.getText().toString());
             editor.putString(et_phone.getText().toString(),et_password.getText().toString());
             editor.putBoolean("rember",true);
@@ -216,6 +220,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         else {
             SharedPreferences.Editor editor=shared.edit();
             editor.putString("phone","");
+            editor.putString("nowphone",et_phone.getText().toString());
             editor.putString("password","");
             editor.putBoolean("rember",false);
             editor.putBoolean("islogin",true);

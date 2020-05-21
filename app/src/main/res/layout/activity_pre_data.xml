@@ -55,6 +55,14 @@
         android:textSize="22sp" />
 
     <Button
+        android:id="@+id/btn_changepassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="修改密码"
+        android:textColor="@color/black"
+        android:textSize="22sp" />
+
+    <Button
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

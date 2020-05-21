@@ -16,10 +16,14 @@ public class Pre_data extends AppCompatActivity implements View.OnClickListener 
     private Button btn_logout;
     private Button btn_shop;
     private TextView tv_integral;
+    private Button btn_changepassword;
 
     private SharedPreferences shared;
+    private int mRequestCode=0;
 
     private int integral;
+    private String phone;
+    private String mpassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +33,10 @@ public class Pre_data extends AppCompatActivity implements View.OnClickListener 
         btn_logout=(Button) findViewById(R.id.btn_logout);
         btn_shop=(Button) findViewById(R.id.btn_shop);
         tv_integral=(TextView) findViewById(R.id.tv_integral);
+        btn_changepassword=(Button) findViewById(R.id.btn_changepassword);
         btn_logout.setOnClickListener(this);
         btn_shop.setOnClickListener(this);
+        btn_changepassword.setOnClickListener(this);
         shared=getSharedPreferences("share",MODE_PRIVATE);
         integral=shared.getInt("integral",0);
         String integrals=Integer.toString(integral);
@@ -44,6 +50,7 @@ public class Pre_data extends AppCompatActivity implements View.OnClickListener 
             editor.putBoolean("rember",false);
             editor.putString("phone","");
             editor.putString("password","");
+            editor.putString("nowphone","");
             editor.commit();
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setTitle("注销成功");
@@ -60,6 +67,22 @@ public class Pre_data extends AppCompatActivity implements View.OnClickListener 
         if(v.getId()==R.id.btn_shop){
             Intent intent1 = new Intent(this,bookshelfActivity.class);
             startActivity(intent1);
+        }
+        if (v.getId()==R.id.btn_changepassword){
+            Intent intent=new Intent(this,LoginForgetActivity.class);
+            phone=shared.getString("nowphone","");
+            intent.putExtra("phone",phone);
+            startActivityForResult(intent,mRequestCode);
+        }
+    }
+
+    protected void onActivityResult(int requestCode,int resultCode,Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == mRequestCode && data != null) {
+            mpassword = data.getStringExtra("new_password");
+            SharedPreferences.Editor editor=shared.edit();
+            editor.putString(phone,mpassword);
+            editor.commit();
         }
     }
 }
