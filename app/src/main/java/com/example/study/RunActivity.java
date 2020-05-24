@@ -2,6 +2,7 @@ package com.example.study;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -54,6 +55,8 @@ public class RunActivity extends AppCompatActivity implements View.OnClickListen
     private boolean isFirstLatLng;
     private Marker makerA;
     private Marker makerB;
+    private SharedPreferences shared;
+    private int integral;
 
     private LocationSource.OnLocationChangedListener mListener;
     private AMapLocationClient mlocationClient;
@@ -74,6 +77,9 @@ public class RunActivity extends AppCompatActivity implements View.OnClickListen
 
         btn_run_pause.setOnClickListener(this);
         btn_run_finsh.setOnClickListener(this);
+
+        shared=getSharedPreferences("share",MODE_PRIVATE);
+        integral=shared.getInt("integral",0);
 
         mMapView = (MapView) findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);// 此方法必须重写
@@ -170,18 +176,37 @@ public class RunActivity extends AppCompatActivity implements View.OnClickListen
     });
 
     private void forcefinshsrun() {
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setTitle("结束运动");
-        builder.setMessage("确定要结束运动吗？");
-        builder.setPositiveButton("确定",new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog,int which){
-                finish();
-            }
-        });
-        builder.setNegativeButton("取消",null);
-        AlertDialog alert=builder.create();
-        alert.show();
+        if(distance>goladdistance){
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            builder.setTitle("结束运动");
+            builder.setMessage("确定要结束运动吗？");
+            builder.setPositiveButton("确定",new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialog,int which){
+                    SharedPreferences.Editor editor=shared.edit();
+                    editor.putInt("integral",integral+1);
+                    editor.commit();
+                    finish();
+                }
+            });
+            builder.setNegativeButton("取消",null);
+            AlertDialog alert=builder.create();
+            alert.show();
+        }
+        else {
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            builder.setTitle("警告");
+            builder.setMessage("还没有达到目标距离，无法获得积分，确定要结束运动吗？");
+            builder.setPositiveButton("确定",new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialog,int which){
+                    finish();
+                }
+            });
+            builder.setNegativeButton("取消",null);
+            AlertDialog alert=builder.create();
+            alert.show();
+        }
     }
 
     @Override
