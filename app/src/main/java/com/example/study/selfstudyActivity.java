@@ -42,6 +42,8 @@ public class selfstudyActivity extends AppCompatActivity implements View.OnClick
     private Boolean isfail=false;
     private SharedPreferences shared;
     private int integral;
+    private String nowphone;
+    private int point;
     private int cnt=0;
 
 
@@ -63,6 +65,9 @@ public class selfstudyActivity extends AppCompatActivity implements View.OnClick
 
         shared=getSharedPreferences("share",MODE_PRIVATE);
         integral=shared.getInt("integral",0);
+        nowphone=shared.getString("nowphone","");
+        point=shared.getInt(nowphone+"point",0);
+
         check();
 
         startTime();
@@ -183,7 +188,7 @@ public class selfstudyActivity extends AppCompatActivity implements View.OnClick
 
     private void finishstudy(){
         SharedPreferences.Editor editor=shared.edit();
-        editor.putInt("integral",integral+1);
+        editor.putInt(nowphone+"point",point+1);
         editor.commit();
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle("自习结束");

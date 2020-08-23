@@ -57,6 +57,8 @@ public class RunActivity extends AppCompatActivity implements View.OnClickListen
     private Marker makerB;
     private SharedPreferences shared;
     private int integral;
+    private int point;
+    private String nowphone;
 
     private LocationSource.OnLocationChangedListener mListener;
     private AMapLocationClient mlocationClient;
@@ -79,7 +81,9 @@ public class RunActivity extends AppCompatActivity implements View.OnClickListen
         btn_run_finsh.setOnClickListener(this);
 
         shared=getSharedPreferences("share",MODE_PRIVATE);
+        nowphone=shared.getString("nowphone","");
         integral=shared.getInt("integral",0);
+        point=shared.getInt(nowphone+"point",0);
 
         mMapView = (MapView) findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);// 此方法必须重写
@@ -184,7 +188,7 @@ public class RunActivity extends AppCompatActivity implements View.OnClickListen
                 @Override
                 public void onClick(DialogInterface dialog,int which){
                     SharedPreferences.Editor editor=shared.edit();
-                    editor.putInt("integral",integral+1);
+                    editor.putInt(nowphone+"point",point+1);
                     editor.commit();
                     finish();
                 }

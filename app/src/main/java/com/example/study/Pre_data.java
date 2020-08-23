@@ -22,7 +22,9 @@ public class Pre_data extends AppCompatActivity implements View.OnClickListener 
     private int mRequestCode=0;
 
     private int integral;
+    private int point;
     private String phone;
+    private String nowphone;
     private String mpassword;
 
     @Override
@@ -39,7 +41,9 @@ public class Pre_data extends AppCompatActivity implements View.OnClickListener 
         btn_changepassword.setOnClickListener(this);
         shared=getSharedPreferences("share",MODE_PRIVATE);
         integral=shared.getInt("integral",0);
-        String integrals=Integer.toString(integral);
+        nowphone=shared.getString("nowphone","");
+        point=shared.getInt(nowphone+"point",0);
+        String integrals=Integer.toString(point);
         tv_integral.setText("积分："+integrals);
     }
 

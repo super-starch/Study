@@ -19,6 +19,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.litepal.LitePal;
+
 public class login extends AppCompatActivity implements View.OnClickListener {
 
     private RadioGroup rg_login;
@@ -42,6 +44,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LitePal.initialize(this);
         setContentView(R.layout.activity_login);
         rg_login=(RadioGroup) findViewById(R.id.rg_login);
         rb_password=(RadioButton) findViewById(R.id.rb_password);
@@ -212,7 +215,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
             editor.putString("phone",et_phone.getText().toString());
             editor.putString("nowphone",et_phone.getText().toString());
             editor.putString("password",et_password.getText().toString());
-            editor.putString(et_phone.getText().toString(),et_password.getText().toString());
+            //editor.putString(et_phone.getText().toString(),et_password.getText().toString());
             editor.putBoolean("rember",true);
             editor.putBoolean("islogin",true);
             editor.commit();
